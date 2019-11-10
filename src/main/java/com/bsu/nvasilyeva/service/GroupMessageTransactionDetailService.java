@@ -1,0 +1,36 @@
+package com.bsu.nvasilyeva.service;
+
+import com.bsu.nvasilyeva.dao.GroupMessageTransactionDetailDAO;
+import com.bsu.nvasilyeva.entity.GroupMessageTransaction;
+import com.bsu.nvasilyeva.entity.GroupMessageTransactionDetail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class GroupMessageTransactionDetailService {
+
+	@Autowired
+	GroupMessageTransactionDetailDAO groupMessageTransactionDetailDAO;
+	
+	@Autowired
+	UserService userService;
+	
+	public int add(String fromId, GroupMessageTransaction messageTransaction, boolean isReaded) {
+		GroupMessageTransactionDetail groupMessageTransactionDetail=new GroupMessageTransactionDetail();
+		groupMessageTransactionDetail.setUserId(userService.buildUserFromId(fromId));
+		groupMessageTransactionDetail.setGroupMessageTransaction(messageTransaction);
+		groupMessageTransactionDetail.setReaded(isReaded);
+		
+		groupMessageTransactionDetailDAO.add(groupMessageTransactionDetail);
+		
+		return groupMessageTransactionDetail.getId(); 
+		
+	}
+
+	
+	public void changeMessageStatusNotReaded(int messageId) {
+
+		groupMessageTransactionDetailDAO.changeMessageStatusNotReaded(messageId);
+	}
+	
+}
