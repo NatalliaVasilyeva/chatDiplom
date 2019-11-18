@@ -11,34 +11,34 @@ import java.util.List;
 @Repository
 public class RolesDAO {
 
-	@PersistenceContext
-	EntityManager entityManager;
+    @PersistenceContext
+    EntityManager entityManager;
 
-	@Transactional
-	public void addRole(Roles roles) {
+    @Transactional
+    public void addRole(Roles roles) {
 
-		entityManager.persist(roles);
-	}
+        entityManager.persist(roles);
+    }
 
-	@Transactional
-	public void deleteRole(Roles roles) {
-		entityManager.remove(roles);
-	}
+    @Transactional
+    public void deleteRole(Roles roles) {
+        entityManager.remove(roles);
+    }
 
-	@Transactional
-	public void updateRole(Roles roles) {
-		entityManager.merge(roles);
-	}
+    @Transactional
+    public void updateRole(Roles roles) {
+        entityManager.merge(roles);
+    }
 
-	@Transactional
-	public Roles findById(int id) {
+    @Transactional
+    public Roles findById(int id) {
 
-		return entityManager.find(Roles.class, id);
-	}
+        return entityManager.find(Roles.class, id);
+    }
 
-	@Transactional
-	public List<Roles> list() {
-		return (List<Roles>) entityManager.createQuery("From Roles").getResultList();
+    @Transactional
+    public List<Roles> list() {
+        return (List<Roles>) entityManager.createQuery("From Roles").getResultList();
 
-	}
+    }
 }

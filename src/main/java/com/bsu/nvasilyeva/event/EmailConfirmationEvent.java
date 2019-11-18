@@ -5,40 +5,43 @@ import org.springframework.context.ApplicationEvent;
 
 public class EmailConfirmationEvent extends ApplicationEvent {
 
-	private static final long serialVersionUID = 1L;
-	private User user;
-	private String contextPath;
-	private String purpose;
+    private static final long serialVersionUID = 1L;
 
-	public EmailConfirmationEvent(Object source, User user, String purpose, String contextPath) {
-		super(source);
-		this.user = user;
-		this.contextPath = contextPath;
-		this.purpose = purpose;
-	}
+    private User user;
 
-	public String getContextPath() {
-		return contextPath;
-	}
+    private String contextPath;
 
-	public void setContextPath(String contextPath) {
-		this.contextPath = contextPath;
-	}
+    private String purpose;
 
-	public User getUser() {
-		return user;
-	}
+    public EmailConfirmationEvent(Object source, User user, String purpose, String contextPath) {
+        super(source);
+        this.user = user;
+        this.contextPath = contextPath;
+        this.purpose = purpose;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public String getContextPath() {
+        return contextPath;
+    }
 
-	public String getPurpose() {
-		return purpose;
-	}
+    public void setContextPath(String contextPath) {
+        this.contextPath = contextPath;
+    }
 
-	public void setPurpose(String purpose) {
-		this.purpose = purpose;
-	}
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
 
 }

@@ -10,108 +10,108 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="groupmessagetransaction")
+@Table(name = "groupMessageTransaction")
 public class GroupMessageTransaction {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "groupId")
-	private GGroup groupId;
+    @ManyToOne
+    @JoinColumn(name = "groupId")
+    private GGroup groupId;
 
-	@ManyToOne
-	@JoinColumn(name = "fromId")
-	private User fromId;
+    @ManyToOne
+    @JoinColumn(name = "fromId")
+    private User fromId;
 
-	@ManyToOne
-	private Message message;
+    @ManyToOne
+    private Message message;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date createdAt =new Date();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "fromId")
-	private List<GroupMessageTransaction> groupMessageTransactions = new ArrayList<>();
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date createdAt = new Date();
 
-	public int getId() {
-		return id;
-	}
+    @JsonIgnore
+    @OneToMany(mappedBy = "fromId")
+    private List<GroupMessageTransaction> groupMessageTransactions = new ArrayList<>();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public GGroup getGroupId() {
-		return groupId;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setGroupId(GGroup groupId) {
-		this.groupId = groupId;
-	}
+    public GGroup getGroupId() {
+        return groupId;
+    }
 
-	public List<GroupMessageTransaction> getGroupMessageTransactions() {
-		return groupMessageTransactions;
-	}
+    public void setGroupId(GGroup groupId) {
+        this.groupId = groupId;
+    }
 
-	public void setGroupMessageTransactions(List<GroupMessageTransaction> groupMessageTransactions) {
-		this.groupMessageTransactions = groupMessageTransactions;
-	}
+    public List<GroupMessageTransaction> getGroupMessageTransactions() {
+        return groupMessageTransactions;
+    }
 
-	public User getFromId() {
-		return fromId;
-	}
+    public void setGroupMessageTransactions(List<GroupMessageTransaction> groupMessageTransactions) {
+        this.groupMessageTransactions = groupMessageTransactions;
+    }
 
-	public void setFromId(User fromId) {
-		this.fromId = fromId;
-	}
+    public User getFromId() {
+        return fromId;
+    }
 
-	public Message getMessage() {
-		return message;
-	}
+    public void setFromId(User fromId) {
+        this.fromId = fromId;
+    }
 
-	public void setMessage(Message message) {
-		this.message = message;
-	}
+    public Message getMessage() {
+        return message;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public void setMessage(Message message) {
+        this.message = message;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		GroupMessageTransaction that = (GroupMessageTransaction) o;
-		return id == that.id &&
-				Objects.equals(groupId, that.groupId) &&
-				Objects.equals(fromId, that.fromId) &&
-				Objects.equals(message, that.message) &&
-				Objects.equals(createdAt, that.createdAt) &&
-				Objects.equals(groupMessageTransactions, that.groupMessageTransactions);
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, groupId, fromId, message, createdAt, groupMessageTransactions);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupMessageTransaction that = (GroupMessageTransaction) o;
+        return id == that.id &&
+                Objects.equals(groupId, that.groupId) &&
+                Objects.equals(fromId, that.fromId) &&
+                Objects.equals(message, that.message) &&
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(groupMessageTransactions, that.groupMessageTransactions);
+    }
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("GroupMessageTransaction{");
-		sb.append("id=").append(id);
-		sb.append(", groupId=").append(groupId);
-		sb.append(", fromId=").append(fromId);
-		sb.append(", message=").append(message);
-		sb.append(", createdAt=").append(createdAt);
-		sb.append(", groupMessageTransactions=").append(groupMessageTransactions);
-		sb.append('}');
-		return sb.toString();
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, groupId, fromId, message, createdAt, groupMessageTransactions);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("GroupMessageTransaction{");
+        sb.append("id=").append(id);
+        sb.append(", groupId=").append(groupId);
+        sb.append(", fromId=").append(fromId);
+        sb.append(", message=").append(message);
+        sb.append(", createdAt=").append(createdAt);
+        sb.append(", groupMessageTransactions=").append(groupMessageTransactions);
+        sb.append('}');
+        return sb.toString();
+    }
 }

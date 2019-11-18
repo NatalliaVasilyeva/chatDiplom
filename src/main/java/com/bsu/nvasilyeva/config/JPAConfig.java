@@ -22,7 +22,6 @@ public class JPAConfig {
 
     /**
      * Get factory to use the CRUD and other operations with Spring JPA
-     *
      * @return factory
      */
 
@@ -38,7 +37,6 @@ public class JPAConfig {
 
     /**
      * Get properties of hibernate to use this features with database
-     *
      * @return properties
      */
 
@@ -55,7 +53,6 @@ public class JPAConfig {
 
     /**
      * Set driver and path to database for this project for get pool connections
-     *
      * @return dataSource
      */
 
@@ -65,13 +62,14 @@ public class JPAConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("root");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/krishi_chat?useUnicode=true&serverTimezone=UTC&useSSL=false");
-       return dataSource;
+        dataSource.setUrl("jdbc:mysql://localhost:3306/diploma_chat?useUnicode=true&serverTimezone=UTC&useSSL=false");
+        return dataSource;
     }
 
 
     /**
      * Create manager to help make transaction in database using Spring Framework
+     *
      * @return jpa transaction manager
      */
     @Bean

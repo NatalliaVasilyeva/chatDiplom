@@ -14,84 +14,84 @@ import java.util.UUID;
 @Service
 public class VerificationTokenService {
 
-	@Autowired
-	VerificationTokenDAO tokenDAO;
+    @Autowired
+    VerificationTokenDAO tokenDAO;
 
-	@Autowired
-	MailService mailService;
+    @Autowired
+    MailService mailService;
 
-	@Autowired
-	ServletContext servletContext;
+    @Autowired
+    ServletContext servletContext;
 
-	public void sendTo(User user, String purpose, String contextPath) {
+    public void sendTo(User user, String purpose, String contextPath) {
 
-		String random = UUID.randomUUID().toString();
-		String message = "";
-		String subject = "";
+        String random = UUID.randomUUID().toString();
+        String message = "";
+        String subject = "";
 
-		// Specifiy messsage according to purpose
-		if (purpose == VerificationToken.EMAILVERIFICATION) {
-			message = "click to verify your email... " + servletContext.getInitParameter("domainName")
-					+ "/confirmRegistration?token=" + random;
-			subject = "Email Verification from KRISHI CHAT";
-		}
+        // Specifiy messsage according to purpose
+        if (purpose == VerificationToken.EMAILVERIFICATION) {
+            message = "click to verify your email... " + servletContext.getInitParameter("domainName")
+                    + "/confirmRegistration?token=" + random;
+            subject = "Email Verification from chat";
+        }
 
-		if (purpose == VerificationToken.FORGOTPASSWORD) {
-			message = "click to forgot your password... " + servletContext.getInitParameter("domainName")
-					+ "/showForgotPassword?token=" + random;
+        if (purpose == VerificationToken.FORGOTPASSWORD) {
+            message = "click to forgot your password... " + servletContext.getInitParameter("domainName")
+                    + "/showForgotPassword?token=" + random;
 
-			subject = "Forgot Password from KRISHI CHAT";
-		}
+            subject = "Forgot Password from chat";
+        }
 
-		// Add record to database
-		VerificationToken token = new VerificationToken();
-		token.setPurpose(purpose);
-		token.setExpiryDate(new Date());
-		token.setToken(random);
-		token.setUser(user);
-		add(token);
+        // Add record to database
+        VerificationToken token = new VerificationToken();
+        token.setPurpose(purpose);
+        token.setExpiryDate(new Date());
+        token.setToken(random);
+        token.setUser(user);
+        add(token);
 
-		// send email with token
-		mailService.sendMail(subject, user.getEmail(), message);
-	}
+        // send email with token
+        mailService.sendMail(subject, user.getEmail(), message);
+    }
 
-	public void add(VerificationToken token) {
-		tokenDAO.addVerificationToken(token);
-	}
+    public void add(VerificationToken token) {
+        tokenDAO.addVerificationToken(token);
+    }
 
-	public VerificationToken findByTokenAndPurpose(String token, String purpose) {
-		return tokenDAO.findByTokenAndPurpose(token, purpose);
-	}
+    public VerificationToken findByTokenAndPurpose(String token, String purpose) {
+        return tokenDAO.findByTokenAndPurpose(token, purpose);
+    }
 
-	public User isValid(String token, String purpose) {
-		VerificationToken verificationToken = findByTokenAndPurpose(token, purpose);
-		if (verificationToken == null) {
-			return null;
-		}
-		Date expiryDate = verificationToken.getExpiryDate();
-		String minuteToExpireToken = "";
-		if (purpose.equals(VerificationToken.EMAILVERIFICATION))
-			minuteToExpireToken = servletContext.getInitParameter("minuteToExpireTokenForEmailVerification");
-		else {
-			minuteToExpireToken = servletContext.getInitParameter("minuteToExpireTokenForForgotPassword");
-		}
-		Date currentTime = new Date();
+    public User isValid(String token, String purpose) {
+        VerificationToken verificationToken = findByTokenAndPurpose(token, purpose);
+        if (verificationToken == null) {
+            return null;
+        }
+        Date expiryDate = verificationToken.getExpiryDate();
+        String minuteToExpireToken = "";
+        if (purpose.equals(VerificationToken.EMAILVERIFICATION))
+            minuteToExpireToken = servletContext.getInitParameter("minuteToExpireTokenForEmailVerification");
+        else {
+            minuteToExpireToken = servletContext.getInitParameter("minuteToExpireTokenForForgotPassword");
+        }
+        Date currentTime = new Date();
 
-		Calendar expiryCalender = Calendar.getInstance();
-		expiryCalender.setTime(expiryDate);
+        Calendar expiryCalender = Calendar.getInstance();
+        expiryCalender.setTime(expiryDate);
 
-		expiryCalender.add(Calendar.MINUTE, Integer.parseInt(minuteToExpireToken));
+        expiryCalender.add(Calendar.MINUTE, Integer.parseInt(minuteToExpireToken));
 
-		expiryDate = expiryCalender.getTime();
-		if (expiryDate.before(currentTime)) {
-			return null;
-		}
-		return verificationToken.getUser();
-	}
+        expiryDate = expiryCalender.getTime();
+        if (expiryDate.before(currentTime)) {
+            return null;
+        }
+        return verificationToken.getUser();
+    }
 
-	public void deleteToken(String token) {
-		tokenDAO.deleteToken(token);
+    public void deleteToken(String token) {
+        tokenDAO.deleteToken(token);
 
-	}
+    }
 
 }

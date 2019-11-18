@@ -1,4 +1,4 @@
-package com.bsu.nvasilyeva.handler;
+package com.bsu.nvasilyeva.entity;
 
 import com.bsu.nvasilyeva.dto.ChatPeopleDTO;
 import org.springframework.stereotype.Component;
@@ -7,8 +7,8 @@ import javax.persistence.Table;
 import java.util.Map;
 
 @Component
-@Table(name="participantrepository")
-public class ParticipantHandler {
+@Table(name="participantRepository")
+public class ParticipantRepository {
 	private Map<String, ChatPeopleDTO> chatPeopleDTOs;
 
 	public void addChatPeopleDTO(String email, ChatPeopleDTO chatPeopleDTO) {

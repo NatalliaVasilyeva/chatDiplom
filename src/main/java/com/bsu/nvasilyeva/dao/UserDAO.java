@@ -26,25 +26,21 @@ public class UserDAO {
 
     @Transactional
     public void addUser(User user) {
-
         entityManager.persist(user);
     }
 
     @Transactional
     public void deleteUser(User user) {
-
         entityManager.remove(user);
     }
 
     @Transactional
     public void updateUser(User user) {
-
         entityManager.merge(user);
     }
 
     @Transactional
     public User findById(String id) {
-
         return entityManager.find(User.class, id);
     }
 

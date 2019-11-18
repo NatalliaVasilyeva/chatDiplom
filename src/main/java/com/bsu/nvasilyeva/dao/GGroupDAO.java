@@ -28,10 +28,9 @@ public class GGroupDAO {
     }
 
     public String getProfileImageById(String groupId) {
-        String profileImagePath = (String) entityManager.
+        return (String) entityManager.
                 createQuery(PROFILE_IMAGE_QUERY).
                 setParameter("groupId", groupId).
                 getSingleResult();
-        return profileImagePath;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "verificationtoken")
+@Table(name = "verificationToken")
 public class VerificationToken {
 
     public static final String FORGOTPASSWORD = "FORGOTPASSWORD";
@@ -18,10 +18,10 @@ public class VerificationToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min = 10, max = 50, message = "Token  length should between 10-50 charecter")
+    @Size(min = 10, max = 50, message = "Token  length should between 10-50 character")
     private String token;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private User user;
 
     private String purpose;

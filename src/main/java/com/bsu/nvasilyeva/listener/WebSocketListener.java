@@ -1,6 +1,6 @@
 package com.bsu.nvasilyeva.listener;
 
-import com.bsu.nvasilyeva.handler.ParticipantHandler;
+import com.bsu.nvasilyeva.entity.ParticipantRepository;
 import com.bsu.nvasilyeva.service.ChatService;
 import com.bsu.nvasilyeva.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +15,24 @@ import java.text.ParseException;
 @Component
 public class WebSocketListener {
 
-	@Autowired
-	ParticipantHandler participantHandler;
+    @Autowired
+    ParticipantRepository participantRepository;
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	@Autowired
+    @Autowired
     ChatService chatService;
 
-	@Autowired
-	SimpMessagingTemplate messageTemplet;
+    @Autowired
+    SimpMessagingTemplate messageTemplet;
 
-	@EventListener
-	private void handleSessionConnected(SessionConnectEvent event) {
-	}
+    @EventListener
+    private void handleSessionConnected(SessionConnectEvent event) {
+    }
 
-	@EventListener
-	private void handleSessionDisconnect(SessionDisconnectEvent event) throws ParseException {
-	}
+    @EventListener
+    private void handleSessionDisconnect(SessionDisconnectEvent event) throws ParseException {
+    }
 
 }

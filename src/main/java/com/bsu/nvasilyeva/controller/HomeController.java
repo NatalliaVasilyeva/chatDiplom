@@ -36,160 +36,152 @@ import java.text.ParseException;
 @Controller
 public class HomeController {
 
-	@Autowired
+    @Autowired
     UserService userService;
 
-	@Autowired
+    @Autowired
     VerificationTokenService tokenService;
 
-	@Autowired
-	ApplicationEventPublisher eventPublisher;
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
 
-	@Autowired
-	AuthenticationManager authenticationManager;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-	@Autowired
-	ActiveUserStore activeUserStore;
+    @Autowired
+    ActiveUserStore activeUserStore;
 
-	@Autowired
-	RolesService rolesService;
+    @Autowired
+    RolesService rolesService;
 
-	@Autowired
+    @Autowired
     ChatService chatService;
 
-	@Autowired
-	BCryptPasswordEncoder encoder;
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
-	@RequestMapping(value = { "/home", "/" })
-	public String home() {
-		return "home";
-	}
+    @RequestMapping(value = {"/home", "/"})
+    public String home() {
+        return "home";
+    }
 
-	@RequestMapping("/login")
-	public String showLogin() {
-		return "login";
-	}
+    @RequestMapping("/login")
+    public String showLogin() {
+        return "login";
+    }
 
-	@RequestMapping(value = "/registration")
-	public ModelAndView showRegistration() {
-		return new ModelAndView("registration", "user", new User());
-	}
+    @RequestMapping(value = "/registration")
+    public ModelAndView showRegistration() {
+        return new ModelAndView("registration", "user", new User());
+    }
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public ModelAndView handleRegistration(@ModelAttribute("user") @Valid User user, BindingResult result,
-			HttpServletRequest request, RedirectAttributes flashModel, Model model) {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ModelAndView handleRegistration(@ModelAttribute("user") @Valid User user, BindingResult result,
+                                           HttpServletRequest request, RedirectAttributes flashModel, Model model) {
 
-		if (result.hasErrors()) {
-			return new ModelAndView("registration", "user", user);
-		}
-		if (userService.findByEmail(user.getEmail()) != null) {
-			model.addAttribute("error", "Your email is already registred...");
-			return new ModelAndView("registration", "user", user);
-		}
+        if (result.hasErrors()) {
+            return new ModelAndView("registration", "user", user);
+        }
+        if (userService.findByEmail(user.getEmail()) != null) {
+            model.addAttribute("error", "Your email is already registered...");
+            return new ModelAndView("registration", "user", user);
+        }
 
-		// add User
-		userService.add(user);
-//		 Comment if you want enable auto login
-		userService.approveUser(user);
+        userService.add(user);
+        userService.approveUser(user);
+        Roles roles = new Roles();
+        roles.setRole("USER");
+        roles.setUser(user);
+        rolesService.add(roles);
 
-		// Set user role
-		Roles roles = new Roles();
-		roles.setRole("USER");
-		roles.setUser(user);
-		rolesService.add(roles);
+        eventPublisher.publishEvent(
+                new EmailConfirmationEvent(this, user, VerificationToken.EMAILVERIFICATION, request.getContextPath()));
 
-		// Send email for verification
-		eventPublisher.publishEvent(
-				new EmailConfirmationEvent(this, user, VerificationToken.EMAILVERIFICATION, request.getContextPath()));
+        flashModel.addFlashAttribute("message", "For email verification confirm link on your email account...");
+        return new ModelAndView("redirect:/registration");
+    }
 
-		flashModel.addFlashAttribute("message", "For email verification confirm link on your email account...");
-		return new ModelAndView("redirect:/registration");
-	}
+    @RequestMapping("/confirmRegistration")
+    public String confirmRegistration(@RequestParam("token") String token, RedirectAttributes model,
+                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-	@RequestMapping("/confirmRegistration")
-	public String confirmRegistration(@RequestParam("token") String token, RedirectAttributes model,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+        User user = tokenService.isValid(token, VerificationToken.EMAILVERIFICATION);
+        if (user == null) {
+            model.addFlashAttribute("error", "Your token is invalid please try again");
+            return "redirect:/login";
+        }
+        userService.approveUser(user);
+        tokenService.deleteToken(token);
+        autoLogin(request, user);
+        return "redirect:/home";
+    }
 
-		User user = tokenService.isValid(token, VerificationToken.EMAILVERIFICATION);
-		if (user == null) {
-			model.addFlashAttribute("error", "Your token is invalid please try again");
-			return "redirect:/login";
-		}
-		userService.approveUser(user);
-		tokenService.deleteToken(token);
-		// Automatically login
-		autoLogin(request, user);
-		return "redirect:/home";
-	}
+    @RequestMapping("/showAddEmail")
+    public String showAddEmai() {
 
-	public boolean autoLogin(HttpServletRequest request, User user) {
-		try {
-			LoggedUserListener loggedUser = null;
-			UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
-			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails,
-					userDetails.getPassword(), userDetails.getAuthorities());
-			if (auth.isAuthenticated() && user.getEnabled()) {
-				SecurityContextHolder.getContext().setAuthentication(auth);
-				HttpSession session = request.getSession(false);
+        return "addEmail";
+    }
 
-				if (session != null) {
-					loggedUser = new LoggedUserListener(user.getEmail(), activeUserStore);
-					session.setAttribute("loggedUser", loggedUser);
-					session.setAttribute("userSession", user);
-				}
-				try {
-					chatService.sendToAllFriendOnlineMessage(user.getEmail());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
 
-				return true;
-			}
-		} catch (Exception e) {
-			System.out.println("Problem authenticating user" + user.getEmail() + e);
-			return false;
-		}
-		return false;
-	}
+    @RequestMapping(value = "/sendforgotPasswordEmailToken", method = RequestMethod.POST)
+    public String sendforgotPasswordEmailToken(@RequestParam("email") String email, RedirectAttributes model,
+                                               HttpServletRequest request) {
+        User user = userService.findByEmail(email);
+        if (user == null) {
+            model.addFlashAttribute("error", "Email address is not valid");
+            return "redirect:/showAddEmail";
+        }
+        eventPublisher.publishEvent(
+                new EmailConfirmationEvent(this, user, VerificationToken.FORGOTPASSWORD, request.getContextPath()));
+        model.addFlashAttribute("message", "please check and verify your email  ..");
+        return "redirect:/showAddEmail";
+    }
 
-	@RequestMapping("/showAddEmail")
-	public String showAddEmai() {
-		return "addEmail";
-	}
+    @RequestMapping("/showForgotPassword")
+    public String showForgotPassword(@RequestParam("token") String token, RedirectAttributes flashModel, Model model) {
 
-	@RequestMapping(value = "/sendforgotPasswordEmailToken", method = RequestMethod.POST)
-	public String sendforgotPasswordEmailToken(@RequestParam("email") String email, RedirectAttributes model,
-			HttpServletRequest request) {
-		User user = userService.findByEmail(email);
-		if (user == null) {
-			model.addFlashAttribute("error", "Email address is not valid");
-			return "redirect:/showAddEmail";
-		}
-		eventPublisher.publishEvent(
-				new EmailConfirmationEvent(this, user, VerificationToken.FORGOTPASSWORD, request.getContextPath()));
-		model.addFlashAttribute("message", "please check and verify your email  ..");
-		return "redirect:/showAddEmail";
-	}
+        User user = tokenService.isValid(token, VerificationToken.FORGOTPASSWORD);
+        if (user == null) {
+            flashModel.addFlashAttribute("error", "Your token is invalid please try again");
+            return "redirect:/login";
+        }
+        tokenService.deleteToken(token);
+        model.addAttribute("email", user.getEmail());
+        return "forgotPassword";
+    }
 
-	@RequestMapping("/showForgotPassword")
-	public String showForgotPassword(@RequestParam("token") String token, RedirectAttributes flashModel, Model model) {
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+    public String forgotPassword(HttpServletRequest request, @RequestParam("email") String email,
+                                 @RequestParam("password") String password, RedirectAttributes model) {
+        User user = userService.forgotPassword(email, password);
 
-		User user = tokenService.isValid(token, VerificationToken.FORGOTPASSWORD);
-		if (user == null) {
-			flashModel.addFlashAttribute("error", "Your token is invalid please try again");
-			return "redirect:/login";
-		}
-		tokenService.deleteToken(token);
-		model.addAttribute("email", user.getEmail());
-		return "forgotPassword";
-	}
+        autoLogin(request, user);
+        return "redirect:/home";
+    }
 
-	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
-	public String forgotPassword(HttpServletRequest request, @RequestParam("email") String email,
-			@RequestParam("password") String password, RedirectAttributes model) {
-		User user = userService.forgotPassword(email, password);
+    private void autoLogin(HttpServletRequest request, User user) {
+        try {
+            LoggedUserListener loggedUser;
+            UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails,
+                    userDetails.getPassword(), userDetails.getAuthorities());
+            if (auth.isAuthenticated() && user.getEnabled()) {
+                SecurityContextHolder.getContext().setAuthentication(auth);
+                HttpSession session = request.getSession(false);
 
-		autoLogin(request, user);
-		return "redirect:/home";
-	}
+                if (session != null) {
+                    loggedUser = new LoggedUserListener(user.getEmail(), activeUserStore);
+                    session.setAttribute("loggedUser", loggedUser);
+                    session.setAttribute("userSession", user);
+                }
+                try {
+                    chatService.sendToAllFriendOnlineMessage(user.getEmail());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Problem authenticating user" + user.getEmail() + e);
+        }
+    }
 }

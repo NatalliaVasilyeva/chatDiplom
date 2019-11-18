@@ -10,20 +10,20 @@ import javax.transaction.Transactional;
 @Repository
 public class MessageDAO {
 
-	@PersistenceContext
-	EntityManager entityManager;
+    @PersistenceContext
+    EntityManager entityManager;
 
-	@Transactional
-	public void add(Message message) {
-		entityManager.
-				persist(message);
-	}
+    @Transactional
+    public void add(Message message) {
+        entityManager.
+                persist(message);
+    }
 
-	@Transactional
-	public Message findById(int id) {
+    @Transactional
+    public Message findById(int id) {
 
-		return entityManager.
-				find(Message.class, id);
-	}
+        return entityManager.
+                find(Message.class, id);
+    }
 
 }

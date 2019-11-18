@@ -33,7 +33,6 @@ public class GroupMessageTransactionDAO {
 
     @Transactional
     public void add(GroupMessageTransaction groupMessageTransaction) {
-
         entityManager.
                 persist(groupMessageTransaction);
     }

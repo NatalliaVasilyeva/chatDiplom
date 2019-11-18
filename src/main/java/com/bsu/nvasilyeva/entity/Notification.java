@@ -10,112 +10,112 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name="notification")
+@Table(name = "notification")
 public class Notification {
-	public static final String SENDREQUEST="SENDREQUEST";
-	public static final String ACCEPTREQUEST="ACCEPTREQUEST";
-	public static final String REJECTREQUEST="REJECTREQUEST";
-	public static final String UNFRIEND="UNFRIEND";
-	public static final String MEMBEROFGROUP="MEMBEROFGROUP";
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-	@Size(min=5,max=100,message="message  length should between 5-100 charecter")
-	private String message;
-	
-	@Size(max=20,message="purpose size less than 20 charecter")
-	private String purpose;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a",timezone="Asia/Kolkata")
-	private Date createdAt = new Date();
-	
-	private boolean isReaded = false;
-	
-	@ManyToOne
-	@JsonIgnore
-	private User user;
+    public static final String SENDREQUEST = "SENDREQUEST";
+    public static final String ACCEPTREQUEST = "ACCEPTREQUEST";
+    public static final String REJECTREQUEST = "REJECTREQUEST";
+    public static final String UNFRIEND = "UNFRIEND";
+    public static final String MEMBEROFGROUP = "MEMBEROFGROUP";
 
-	
-	public boolean isReaded() {
-		return isReaded;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	public void setReaded(boolean isReaded) {
-		this.isReaded = isReaded;
-	}
+    @Size(min = 5, max = 100, message = "message  length should between 5-100 character")
+    private String message;
 
-	public User getUser() {
-		return user;
-	}
+    @Size(max = 20, message = "purpose size less than 20 character")
+    private String purpose;
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a", timezone = "Europe/Minsk")
+    private Date createdAt = new Date();
 
-	public int getId() {
-		return id;
-	}
+    private boolean isReaded = false;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JsonIgnore
+    private User user;
 
-	public String getMessage() {
-		return message;
-	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public boolean isReaded() {
+        return isReaded;
+    }
 
-	public String getPurpose() {
-		return purpose;
-	}
+    public void setReaded(boolean isReaded) {
+        this.isReaded = isReaded;
+    }
 
-	public void setPurpose(String purpose) {
-		this.purpose = purpose;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public int getId() {
+        return id;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Notification that = (Notification) o;
-		return id == that.id &&
-				isReaded == that.isReaded &&
-				Objects.equals(message, that.message) &&
-				Objects.equals(purpose, that.purpose) &&
-				Objects.equals(createdAt, that.createdAt) &&
-				Objects.equals(user, that.user);
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, message, purpose, createdAt, isReaded, user);
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("Notification{");
-		sb.append("id=").append(id);
-		sb.append(", message='").append(message).append('\'');
-		sb.append(", purpose='").append(purpose).append('\'');
-		sb.append(", createdAt=").append(createdAt);
-		sb.append(", isReaded=").append(isReaded);
-		sb.append(", user=").append(user);
-		sb.append('}');
-		return sb.toString();
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Notification that = (Notification) o;
+        return id == that.id &&
+                isReaded == that.isReaded &&
+                Objects.equals(message, that.message) &&
+                Objects.equals(purpose, that.purpose) &&
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, message, purpose, createdAt, isReaded, user);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Notification{");
+        sb.append("id=").append(id);
+        sb.append(", message='").append(message).append('\'');
+        sb.append(", purpose='").append(purpose).append('\'');
+        sb.append(", createdAt=").append(createdAt);
+        sb.append(", isReaded=").append(isReaded);
+        sb.append(", user=").append(user);
+        sb.append('}');
+        return sb.toString();
+    }
 }

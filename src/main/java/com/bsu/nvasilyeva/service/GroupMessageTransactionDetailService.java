@@ -9,28 +9,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class GroupMessageTransactionDetailService {
 
-	@Autowired
-	GroupMessageTransactionDetailDAO groupMessageTransactionDetailDAO;
-	
-	@Autowired
-	UserService userService;
-	
-	public int add(String fromId, GroupMessageTransaction messageTransaction, boolean isReaded) {
-		GroupMessageTransactionDetail groupMessageTransactionDetail=new GroupMessageTransactionDetail();
-		groupMessageTransactionDetail.setUserId(userService.buildUserFromId(fromId));
-		groupMessageTransactionDetail.setGroupMessageTransaction(messageTransaction);
-		groupMessageTransactionDetail.setReaded(isReaded);
-		
-		groupMessageTransactionDetailDAO.add(groupMessageTransactionDetail);
-		
-		return groupMessageTransactionDetail.getId(); 
-		
-	}
+    @Autowired
+    GroupMessageTransactionDetailDAO groupMessageTransactionDetailDAO;
 
-	
-	public void changeMessageStatusNotReaded(int messageId) {
+    @Autowired
+    UserService userService;
 
-		groupMessageTransactionDetailDAO.changeMessageStatusNotReaded(messageId);
-	}
-	
+    public int add(String fromId, GroupMessageTransaction messageTransaction, boolean isReaded) {
+        GroupMessageTransactionDetail groupMessageTransactionDetail = new GroupMessageTransactionDetail();
+        groupMessageTransactionDetail.setUserId(userService.buildUserFromId(fromId));
+        groupMessageTransactionDetail.setGroupMessageTransaction(messageTransaction);
+        groupMessageTransactionDetail.setReaded(isReaded);
+
+        groupMessageTransactionDetailDAO.add(groupMessageTransactionDetail);
+
+        return groupMessageTransactionDetail.getId();
+
+    }
+
+
+    public void changeMessageStatusNotReaded(int messageId) {
+
+        groupMessageTransactionDetailDAO.changeMessageStatusNotReaded(messageId);
+    }
+
 }

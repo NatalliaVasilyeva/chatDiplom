@@ -21,81 +21,84 @@ import java.text.ParseException;
 
 @Controller
 public class UserController {
-	@Autowired
+    @Autowired
     UserService userService;
-	@Autowired
-	ServletContext servletContext;
+    @Autowired
+    ServletContext servletContext;
 
-	@Autowired
+    @Autowired
     ImageService imageService;
 
-	@Autowired
+    @Autowired
     FriendListService friendListService;
 
-	@RequestMapping("/showProfile")
-	public ModelAndView showProfile(@SessionAttribute("userSession") User user, Model model) {
-		return new ModelAndView("profile", "user", user);
-	}
+    @RequestMapping("/showProfile")
+    public ModelAndView showProfile(@SessionAttribute("userSession") User user, Model model) {
+        return new ModelAndView("profile", "user", user);
+    }
 
-	@RequestMapping(value = "/updateProfileImage", method = RequestMethod.POST)
-	public void updateProfileImage(@RequestParam("userId") String userId, @RequestParam("file") String file,
-			HttpServletRequest request, @SessionAttribute("userSession") User user) throws IOException {
-		String path = null;
+    @RequestMapping(value = "/updateProfileImage", method = RequestMethod.POST)
+    public void updateProfileImage(@RequestParam("userId") String userId, @RequestParam("file") String file,
+                                   HttpServletRequest request, @SessionAttribute("userSession") User user) throws IOException {
+        String path = null;
 
-		String location = servletContext.getRealPath("/") + File.separator + "resources" + File.separator
-				+ "profileImage";
+        String location = servletContext.getRealPath("/") + File.separator + "resources" + File.separator
+                + "profileImage";
 
-		path = imageService.storeImage(file, location);
-		imageService.deleteImage(user.getProfileImagePath(), location);
-		userService.updateProfileImage(userId, path);
-		user.setProfileImagePath(path);
-		request.getSession(false).setAttribute("userSession", user);
-	}
+        path = imageService.storeImage(file, location);
+        imageService.deleteImage(user.getProfileImagePath(), location);
+        userService.updateProfileImage(userId, path);
+        user.setProfileImagePath(path);
+        request.getSession(false).setAttribute("userSession", user);
+    }
 
-	@RequestMapping(value = "/handleEditProfile", method = RequestMethod.POST)
-	public ModelAndView handleEditProfile(@ModelAttribute("user") @Valid User user, BindingResult result, Model model,
-			HttpServletRequest request, RedirectAttributes flashModel,
-			@SessionAttribute("userSession") User userSession) {
+    @RequestMapping(value = "/handleEditProfile", method = RequestMethod.POST)
+    public ModelAndView handleEditProfile(@ModelAttribute("user") @Valid User user, BindingResult result, Model model,
+                                          HttpServletRequest request, RedirectAttributes flashModel,
+                                          @SessionAttribute("userSession") User userSession) {
 
-		if (result.hasErrors()) {
-			model.addAttribute("error", "Error in profile updation please check it..");
-			return new ModelAndView("profile", "user", user);
-		}
-		user.setProfileImagePath(userSession.getProfileImagePath());
-		userService.updateUser(user);
-		request.getSession(false).setAttribute("userSession", user);
-		flashModel.addFlashAttribute("message", "Profile successfully changed");
-		return new ModelAndView("redirect:/showProfile");
+        if (result.hasErrors()) {
+            model.addAttribute("error", "Error in profile update, please check it..");
+            return new ModelAndView("profile", "user", user);
+        }
+        user.setProfileImagePath(userSession.getProfileImagePath());
+        userService.updateUser(user);
+        request.getSession(false).setAttribute("userSession", user);
+        flashModel.addFlashAttribute("message", "Profile successfully changed");
+        return new ModelAndView("redirect:/showProfile");
 
-	}
+    }
 
-	@RequestMapping("/getUserProfile")
-	public @ResponseBody User getUserProfile(@RequestParam("id") String id) {
-		return userService.findById(id);
-	}
+    @RequestMapping("/getUserProfile")
+    public @ResponseBody
+    User getUserProfile(@RequestParam("id") String id){
 
-	@RequestMapping("/discoverUser")
-	public ModelAndView applicationUsers(@RequestParam(value = "page", defaultValue = "1") int page,
-			@SessionAttribute("userSession") User user) {
-		return new ModelAndView("discoverUser", "users", friendListService.getRequestableUser(page, user));
-	}
+            return userService.findById(id);
+    }
 
-	@RequestMapping("/friendPendingRequest")
-	public ModelAndView getFriendPendingRequest(@RequestParam(value = "page", defaultValue = "1") int page,
-			@SessionAttribute("userSession") User user) throws ParseException {
-		return new ModelAndView("friendPendingRequest", "users", friendListService.getFriendPendingUser(page, user));
-	}
 
-	@RequestMapping("/friendRequest")
-	public ModelAndView getFriendRequest(@RequestParam(value = "page", defaultValue = "1") int page,
-			@SessionAttribute("userSession") User user) throws ParseException {
-		return new ModelAndView("friendRequest", "users", friendListService.getFriendRequestUser(page, user));
-	}
+    @RequestMapping("/discoverUser")
+    public ModelAndView applicationUsers(@RequestParam(value = "page", defaultValue = "1") int page,
+                                         @SessionAttribute("userSession") User user) {
+        return new ModelAndView("discoverUser", "users", friendListService.getRequestableUser(page, user));
+    }
 
-	@RequestMapping("/friendList")
-	public ModelAndView getFriendList(@SessionAttribute("userSession") User user) {
+    @RequestMapping("/friendPendingRequest")
+    public ModelAndView getFriendPendingRequest(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                @SessionAttribute("userSession") User user) throws ParseException {
+        return new ModelAndView("friendPendingRequest", "users", friendListService.getFriendPendingUser(page, user));
+    }
 
-		return new ModelAndView("friendList", "users", friendListService.getFriendList(user));
-	}
+    @RequestMapping("/friendRequest")
+    public ModelAndView getFriendRequest(@RequestParam(value = "page", defaultValue = "1") int page,
+                                         @SessionAttribute("userSession") User user) throws ParseException {
+        return new ModelAndView("friendRequest", "users", friendListService.getFriendRequestUser(page, user));
+    }
+
+    @RequestMapping("/friendList")
+    public ModelAndView getFriendList(@SessionAttribute("userSession") User user) {
+
+        return new ModelAndView("friendList", "users", friendListService.getFriendList(user));
+    }
 
 }

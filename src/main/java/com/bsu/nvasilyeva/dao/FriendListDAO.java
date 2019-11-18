@@ -50,8 +50,8 @@ public class FriendListDAO {
         @SuppressWarnings("unchecked")
         List<ApplicationUserDTO> applicationUserDTOs = entityManager.
                 createQuery(FRIEND_PENDING_QUERY).
-                setParameter("fromId", user)
-                .getResultList();
+                setParameter("fromId", user).
+                getResultList();
         return applicationUserDTOs;
 
     }
@@ -60,16 +60,16 @@ public class FriendListDAO {
         @SuppressWarnings("unchecked")
         List<ApplicationUserDTO> applicationUserDTOs = entityManager.
                 createQuery(FRIEND_REQUEST_QUERY).
-                setParameter("fromId", user)
-                .getResultList();
+                setParameter("fromId", user).
+                getResultList();
         return applicationUserDTOs;
     }
 
     @Transactional
     public void acceptFriendRequest(User fromUser, User toUser) {
         entityManager.
-                createQuery(UPDATE_FRIEND_LIST_QUERY)
-                .setParameter("fromUser", fromUser).
+                createQuery(UPDATE_FRIEND_LIST_QUERY).
+                setParameter("fromUser", fromUser).
                 setParameter("toUser", toUser).
                 executeUpdate();
     }
@@ -87,13 +87,14 @@ public class FriendListDAO {
     @Transactional
     public void rejectFriendRequest(User fromUser, User toUser) {
         entityManager.
-                createQuery(DELETE_FROM_FRIEND_LIST_QUERY)
-                .setParameter("fromUser", fromUser).setParameter("toUser", toUser).
+                createQuery(DELETE_FROM_FRIEND_LIST_QUERY).
+                setParameter("fromUser", fromUser).
+                setParameter("toUser", toUser).
                 executeUpdate();
 
         entityManager.
-                createQuery(DELETE_FROM_PERSONAL_MESSAGE_QUERY)
-                .setParameter("fromUser", fromUser).
+                createQuery(DELETE_FROM_PERSONAL_MESSAGE_QUERY).
+                setParameter("fromUser", fromUser).
                 setParameter("toUser", toUser).
                 executeUpdate();
 

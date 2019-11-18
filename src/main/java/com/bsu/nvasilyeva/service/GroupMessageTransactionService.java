@@ -12,24 +12,24 @@ import javax.transaction.Transactional;
 @Service
 public class GroupMessageTransactionService {
 
-	@Autowired
-	GroupMessageTransactionDAO groupMessageTransactionDAO;
-	
-	@Autowired
-	UserService userService;
-	
-	public void add(GroupMessageTransaction groupMessageTransaction) {
-		
-		groupMessageTransactionDAO.add(groupMessageTransaction);
-	}
+    @Autowired
+    GroupMessageTransactionDAO groupMessageTransactionDAO;
 
-	@Transactional
-	public void changeAllGroupMessageStatusAllReaded(String groupId, String fromId) {
-		GGroup group=new GGroup();
-		group.setId(groupId);
-		
-		User user = userService.buildUserFromId(fromId);
-		groupMessageTransactionDAO.changeAllGroupMessageStatusAllReaded(group,user);
-	}
+    @Autowired
+    UserService userService;
+
+    public void add(GroupMessageTransaction groupMessageTransaction) {
+
+        groupMessageTransactionDAO.add(groupMessageTransaction);
+    }
+
+    @Transactional
+    public void changeAllGroupMessageStatusAllReaded(String groupId, String fromId) {
+        GGroup group = new GGroup();
+        group.setId(groupId);
+
+        User user = userService.buildUserFromId(fromId);
+        groupMessageTransactionDAO.changeAllGroupMessageStatusAllReaded(group, user);
+    }
 
 }

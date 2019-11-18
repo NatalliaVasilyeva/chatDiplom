@@ -38,7 +38,8 @@ public class BeansConfig implements WebMvcConfigurer {
     /**
      * The jsp view resolver is spring built-in view resolver, it will return jsp pages saved in webapp/WEB-INF/views folder.
      * And spring will use the return string to build the jsp page file path with below format webapp/WEB-INF/views/return_string.jsp
-     * @return  returned string will be the jsp file name.
+     *
+     * @return returned string will be the jsp file name.
      */
 
     @Bean
@@ -53,11 +54,12 @@ public class BeansConfig implements WebMvcConfigurer {
      * MessageSource bean is spring built-in bean name which will manipulate internationalization messages.
      * All message files is saved in resources/Resource Bundle/ folder
      * Each message file is a properties file, the file base name is messages and suffix with the language or country ISO code, such as messages_en, messages_ru.
+     *
      * @return bundleMessage
      */
 
-    @Bean(name ="messageSource")
-    public ReloadableResourceBundleMessageSource getBundleMessage(){
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource getBundleMessage() {
         ReloadableResourceBundleMessageSource bundleMessage = new ReloadableResourceBundleMessageSource();
         bundleMessage.setBasename("classpath:messages");
         bundleMessage.setCacheSeconds(1);
@@ -67,8 +69,9 @@ public class BeansConfig implements WebMvcConfigurer {
     }
 
     /**
-     *  The localeResolver is used to resolve user locale data. The CookieLocaleResolver object is used to save user locale information in browser cookie.
+     * The localeResolver is used to resolve user locale data. The CookieLocaleResolver object is used to save user locale information in browser cookie.
      * This way user locale info can be transferred between request. If user disable cookie then you can use SessionLocaleResolver instead.
+     *
      * @return localeResolver
      */
 
@@ -83,31 +86,33 @@ public class BeansConfig implements WebMvcConfigurer {
 
 
     /**
-     *  If user disable cookie then you can use SessionLocaleResolver instead.
-     *  @return localeResolver
+     * If user disable cookie then you can use SessionLocaleResolver instead.
+     *
+     * @return localeResolver
      */
 
-   @Bean(name = "localeResolver")
-    public SessionLocaleResolver getSessionLocaleResolver(){
-      SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-      localeResolver.setDefaultLocale(Locale.ENGLISH);
-      return localeResolver;
+    @Bean(name = "localeResolver")
+    public SessionLocaleResolver getSessionLocaleResolver() {
+        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(Locale.ENGLISH);
+        return localeResolver;
     }
 
     /**
      * The LocaleChangeInterceptor is a interceptor that will intercept user locale change by a parameter value.
+     *
      * @return interceptor with parameter"lang"
      */
 
-    @Bean(name="localeInterceptor")
-    public LocaleChangeInterceptor getLocaleInterceptor(){
+    @Bean(name = "localeInterceptor")
+    public LocaleChangeInterceptor getLocaleInterceptor() {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("lang");
         return interceptor;
     }
 
     /**
-     *  Register locale interceptor in spring then it will intercept user request url and parse out the lang query string to get user request locale.
+     * Register locale interceptor in spring then it will intercept user request url and parse out the lang query string to get user request locale.
      */
 
     @Override
@@ -153,12 +158,13 @@ public class BeansConfig implements WebMvcConfigurer {
         JavaMailSenderImpl senderImpl = new JavaMailSenderImpl();
         senderImpl.setHost("smtp.gmail.com");
         senderImpl.setPort(587);
-
-        senderImpl.setUsername("natali1111@tut.by");
-        senderImpl.setPassword("dremlin1987");
-
+        senderImpl.setUsername("bsufinalchat@gmail.com");
+        senderImpl.setPassword("a12345678a!");
         Properties props = senderImpl.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "false");
 
         return senderImpl;
 

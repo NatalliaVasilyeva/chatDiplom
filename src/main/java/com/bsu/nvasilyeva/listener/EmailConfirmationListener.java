@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailConfirmationListener {
 
-	@Autowired
+    @Autowired
     VerificationTokenService tokenService;
 
-	@EventListener
-	@Async
-	public void onApplicationEvent(EmailConfirmationEvent event) {
-		tokenService.sendTo(event.getUser(), event.getPurpose(), event.getContextPath());
-	}
+    @EventListener
+    @Async
+    public void onApplicationEvent(EmailConfirmationEvent event) {
+        tokenService.sendTo(event.getUser(), event.getPurpose(), event.getContextPath());
+    }
 
 }

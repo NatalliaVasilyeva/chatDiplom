@@ -7,106 +7,106 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name="personalmessagetransaction")
+@Table(name = "personalMessageTransaction")
 public class PersonalMessageTransaction {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "fromId")
-	private User fromId;
+    @ManyToOne
+    @JoinColumn(name = "fromId")
+    private User fromId;
 
-	@ManyToOne
-	@JoinColumn(name = "toId")
-	private User toId;
+    @ManyToOne
+    @JoinColumn(name = "toId")
+    private User toId;
 
-	@ManyToOne
-	private Message message;
-	
-	private boolean isReaded = false;
+    @ManyToOne
+    private Message message;
 
-	public boolean isReaded() {
-		return isReaded;
-	}
+    private boolean isReaded = false;
 
-	public void setReaded(boolean isReaded) {
-		this.isReaded = isReaded;
-	}
+    public boolean isReaded() {
+        return isReaded;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date createdAt=new Date();
+    public void setReaded(boolean isReaded) {
+        this.isReaded = isReaded;
+    }
 
-	public int getId() {
-		return id;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date createdAt = new Date();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public User getFromId() {
-		return fromId;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setFromId(User fromId) {
-		this.fromId = fromId;
-	}
+    public User getFromId() {
+        return fromId;
+    }
 
-	public User getToId() {
-		return toId;
-	}
+    public void setFromId(User fromId) {
+        this.fromId = fromId;
+    }
 
-	public void setToId(User toId) {
-		this.toId = toId;
-	}
+    public User getToId() {
+        return toId;
+    }
 
-	public Message getMessage() {
-		return message;
-	}
+    public void setToId(User toId) {
+        this.toId = toId;
+    }
 
-	public void setMessage(Message message) {
-		this.message = message;
-	}
+    public Message getMessage() {
+        return message;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public void setMessage(Message message) {
+        this.message = message;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		PersonalMessageTransaction that = (PersonalMessageTransaction) o;
-		return id == that.id &&
-				isReaded == that.isReaded &&
-				Objects.equals(fromId, that.fromId) &&
-				Objects.equals(toId, that.toId) &&
-				Objects.equals(message, that.message) &&
-				Objects.equals(createdAt, that.createdAt);
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, fromId, toId, message, isReaded, createdAt);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonalMessageTransaction that = (PersonalMessageTransaction) o;
+        return id == that.id &&
+                isReaded == that.isReaded &&
+                Objects.equals(fromId, that.fromId) &&
+                Objects.equals(toId, that.toId) &&
+                Objects.equals(message, that.message) &&
+                Objects.equals(createdAt, that.createdAt);
+    }
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("PersonalMessageTransaction{");
-		sb.append("id=").append(id);
-		sb.append(", fromId=").append(fromId);
-		sb.append(", toId=").append(toId);
-		sb.append(", message=").append(message);
-		sb.append(", isReaded=").append(isReaded);
-		sb.append(", createdAt=").append(createdAt);
-		sb.append('}');
-		return sb.toString();
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fromId, toId, message, isReaded, createdAt);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("PersonalMessageTransaction{");
+        sb.append("id=").append(id);
+        sb.append(", fromId=").append(fromId);
+        sb.append(", toId=").append(toId);
+        sb.append(", message=").append(message);
+        sb.append(", isReaded=").append(isReaded);
+        sb.append(", createdAt=").append(createdAt);
+        sb.append('}');
+        return sb.toString();
+    }
 }

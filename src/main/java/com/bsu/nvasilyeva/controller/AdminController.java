@@ -10,16 +10,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController {
 
-	@Autowired
-	AuthenticationLogService authenticationLogService;
+    @Autowired
+    AuthenticationLogService authenticationLogService;
 
-	/**
-	 * After request to this address finds log information
-	 * @return page @log.jsp with log information
-	 */
+    /**
+     * After request to this address finds log information
+     * @return page @log.jsp with log information
+     */
 
-	@RequestMapping("/log")
-	public ModelAndView showLog() {
-		return new ModelAndView("log", "logs", authenticationLogService.list());
-	}
+    @RequestMapping("/log")
+    public ModelAndView showLog()
+    {
+        return new ModelAndView("log", "logs", authenticationLogService.list());
+    }
 }

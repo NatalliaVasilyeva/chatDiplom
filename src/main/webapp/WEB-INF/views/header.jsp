@@ -188,8 +188,7 @@
             <div
                     class="alert alert-success alert-dismissible fade show box-shadow"
                     role="alert">
-                <spring:message code="header.message" var="message"/>
-                <strong>${message} : </strong> ${message}
+                <strong>Message : </strong> ${message}
                 <button type="button" class="close" data-dismiss="alert"
                         aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -206,8 +205,7 @@
             <div
                     class="alert alert-danger alert-dismissible fade show box-shadow"
                     role="alert">
-                <spring:message code="header.error" var="error"/>
-                <strong>${error} :</strong> ${error}
+                <strong>Error :</strong> ${error}
                 <button type="button" class="close" data-dismiss="alert"
                         aria-label="Close">
                     <span aria-hidden="true"> &times; </span>

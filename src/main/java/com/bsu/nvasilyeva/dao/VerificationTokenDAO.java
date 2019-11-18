@@ -16,13 +16,16 @@ public class VerificationTokenDAO {
     @PersistenceContext
     EntityManager entityManager;
 
+
     @Transactional
     public void addVerificationToken(VerificationToken verifivationToken) {
+
         entityManager.persist(verifivationToken);
     }
 
     @Transactional
     public VerificationToken findById(int id) {
+
         return entityManager.find(VerificationToken.class, id);
     }
 

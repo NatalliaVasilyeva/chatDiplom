@@ -23,288 +23,288 @@ import java.util.Objects;
 @Table(name = "user")
 public class User {
 
-	@Id
-	@GenericGenerator(name = "sequence_user_id", strategy = "com.bsu.nvasilyeva.service.CustomUserIdGenrator")
-	@GeneratedValue(generator = "sequence_user_id")
-	@Size(max = 100)
-	private String id;
+    @Id
+    @GenericGenerator(name = "sequence_user_id", strategy = "com.bsu.nvasilyeva.service.CustomUserIdGenerator")
+    @GeneratedValue(generator = "sequence_user_id")
+    @Size(max = 100)
+    private String id;
 
-	@Size(min = 2, max = 50, message = "Name length should between 2-50 character")
-	private String name;
+    @Size(min = 2, max = 50, message = "Name length should between 2-50 character")
+    private String name;
 
-	@Temporal(TemporalType.DATE)
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date birthdate;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date birthdate;
 
-	@Size(min = 2, max = 10, message = "Gender length should between 2-10 character")
-	private String gender;
+    @Size(min = 2, max = 10, message = "Gender length should between 2-10 character")
+    private String gender;
 
-	@Size(min = 2, max = 100, message = "Status length should between 2-100 character")
-	private String status;
+    @Size(min = 2, max = 100, message = "Status length should between 2-100 character")
+    private String status;
 
-	@Size(min = 10, max = 255, message = "Address length should between 10-255 character")
-	private String address;
+    @Size(min = 10, max = 255, message = "Address length should between 10-255 character")
+    private String address;
 
-	@JsonIgnore
-	@Transient
-	MultipartFile file;
+    @JsonIgnore
+    @Transient
+    private MultipartFile file;
 
-	@Size(min = 2, max = 100, message = "Image Path length should between 2-100 character")
-	private String profileImagePath = "defaultProfile.png";
+    @Size(min = 2, max = 100, message = "Image Path length should between 2-100 character")
+    private String profileImagePath = "defaultProfile.png";
 
-	@NaturalId
-	@Size(min = 2, max = 50, message = "Email length should between 2-100 character")
-	@Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", message = "Please enter valid email address")
-	private String email;
+    @NaturalId
+    @Size(min = 2, max = 50, message = "Email length should between 2-100 character")
+    @Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", message = "Please enter valid email address")
+    private String email;
 
-	@JsonIgnore
-	@Size(min = 5, max = 100, message = "Password  length should between 5-100 character")
-	private String password;
+    @JsonIgnore
+    @Size(min = 5, max = 100, message = "Password  length should between 5-100 character")
+    private String password;
 
-	@JsonIgnore
-	private boolean enabled;
+    @JsonIgnore
+    private boolean enabled;
 
-	@JsonIgnore
-	private boolean isBlock;
+    @JsonIgnore
+    private boolean isBlock;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date activeTime = new Date();
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date activeTime = new Date();
 
-	@JsonIgnore
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date createdAt = new Date();
+    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date createdAt = new Date();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	private List<VerificationToken> verificationTokens;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<VerificationToken> verificationTokens;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	private List<Roles> roles = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Roles> roles = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "fromId")
-	private List<PersonalMessageTransaction> personalMessageTransactions = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "fromId")
+    private List<PersonalMessageTransaction> personalMessageTransactions = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "fromId")
-	private List<GroupMessageTransaction> groupMessageTransactions = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "fromId")
+    private List<GroupMessageTransaction> groupMessageTransactions = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "fromId")
-	private List<FriendList> friendLists = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "fromId")
+    private List<FriendList> friendLists = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "groupId")
-	private List<GroupMember> groupMembers = new ArrayList<>();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	private List<Notification> notification = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "groupId")
+    private List<GroupMember> groupMembers = new ArrayList<>();
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notification = new ArrayList<>();
 
-	public String getId() {
-		return id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Date getActiveTime() {
-		return activeTime;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setActiveTime(Date activeTime) {
-		this.activeTime = activeTime;
-	}
+    public Date getActiveTime() {
+        return activeTime;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setActiveTime(Date activeTime) {
+        this.activeTime = activeTime;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Date getBirthdate() {
-		return birthdate;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
+    public Date getBirthdate() {
+        return birthdate;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public MultipartFile getFile() {
-		return file;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setFile(MultipartFile file) {
-		this.file = file;
-	}
+    public MultipartFile getFile() {
+        return file;
+    }
 
-	public String getProfileImagePath() {
-		return profileImagePath;
-	}
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
-	public void setProfileImagePath(String profileImagePath) {
-		this.profileImagePath = profileImagePath;
-	}
+    public String getProfileImagePath() {
+        return profileImagePath;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setProfileImagePath(String profileImagePath) {
+        this.profileImagePath = profileImagePath;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public boolean getEnabled() {
-		return enabled;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public boolean getIsBlock() {
-		return isBlock;
-	}
+    public boolean getEnabled() {
+        return enabled;
+    }
 
-	public void setIsBlock(boolean isBlock) {
-		this.isBlock = isBlock;
-	}
+    public boolean getIsBlock() {
+        return isBlock;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public void setIsBlock(boolean isBlock) {
+        this.isBlock = isBlock;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public List<VerificationToken> getVerificationTokens() {
-		return verificationTokens;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public void setVerificationTokens(List<VerificationToken> verificationTokens) {
-		this.verificationTokens = verificationTokens;
-	}
+    public List<VerificationToken> getVerificationTokens() {
+        return verificationTokens;
+    }
 
-	public List<Roles> getRoles() {
-		return roles;
-	}
+    public void setVerificationTokens(List<VerificationToken> verificationTokens) {
+        this.verificationTokens = verificationTokens;
+    }
 
-	public void setRoles(List<Roles> roles) {
-		this.roles = roles;
-	}
+    public List<Roles> getRoles() {
+        return roles;
+    }
 
-	public List<GroupMessageTransaction> getGroupMessageTransactions() {
-		return groupMessageTransactions;
-	}
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
 
-	public void setGroupMessageTransactions(List<GroupMessageTransaction> groupMessageTransactions) {
-		this.groupMessageTransactions = groupMessageTransactions;
-	}
+    public List<GroupMessageTransaction> getGroupMessageTransactions() {
+        return groupMessageTransactions;
+    }
 
-	public List<PersonalMessageTransaction> getPersonalMessageTransactions() {
-		return personalMessageTransactions;
-	}
+    public void setGroupMessageTransactions(List<GroupMessageTransaction> groupMessageTransactions) {
+        this.groupMessageTransactions = groupMessageTransactions;
+    }
 
-	public void setPersonalMessageTransactions(List<PersonalMessageTransaction> personalMessageTransactions) {
-		this.personalMessageTransactions = personalMessageTransactions;
-	}
+    public List<PersonalMessageTransaction> getPersonalMessageTransactions() {
+        return personalMessageTransactions;
+    }
 
-	public List<FriendList> getFriendLists() {
-		return friendLists;
-	}
+    public void setPersonalMessageTransactions(List<PersonalMessageTransaction> personalMessageTransactions) {
+        this.personalMessageTransactions = personalMessageTransactions;
+    }
 
-	public void setFriendLists(List<FriendList> friendLists) {
-		this.friendLists = friendLists;
-	}
+    public List<FriendList> getFriendLists() {
+        return friendLists;
+    }
 
-	public List<GroupMember> getGroupMembers() {
-		return groupMembers;
-	}
+    public void setFriendLists(List<FriendList> friendLists) {
+        this.friendLists = friendLists;
+    }
 
-	public void setGroupMembers(List<GroupMember> groupMembers) {
-		this.groupMembers = groupMembers;
-	}
+    public List<GroupMember> getGroupMembers() {
+        return groupMembers;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		User user = (User) o;
-		return enabled == user.enabled &&
-				isBlock == user.isBlock &&
-				Objects.equals(id, user.id) &&
-				Objects.equals(name, user.name) &&
-				Objects.equals(birthdate, user.birthdate) &&
-				Objects.equals(gender, user.gender) &&
-				Objects.equals(status, user.status) &&
-				Objects.equals(address, user.address) &&
-				Objects.equals(file, user.file) &&
-				Objects.equals(profileImagePath, user.profileImagePath) &&
-				Objects.equals(email, user.email) &&
-				Objects.equals(password, user.password) &&
-				Objects.equals(activeTime, user.activeTime) &&
-				Objects.equals(createdAt, user.createdAt) &&
-				Objects.equals(verificationTokens, user.verificationTokens) &&
-				Objects.equals(roles, user.roles) &&
-				Objects.equals(personalMessageTransactions, user.personalMessageTransactions) &&
-				Objects.equals(groupMessageTransactions, user.groupMessageTransactions) &&
-				Objects.equals(friendLists, user.friendLists) &&
-				Objects.equals(groupMembers, user.groupMembers) &&
-				Objects.equals(notification, user.notification);
-	}
+    public void setGroupMembers(List<GroupMember> groupMembers) {
+        this.groupMembers = groupMembers;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, birthdate, gender, status, address, file, profileImagePath, email, password, enabled, isBlock, activeTime, createdAt, verificationTokens, roles, personalMessageTransactions, groupMessageTransactions, friendLists, groupMembers, notification);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return enabled == user.enabled &&
+                isBlock == user.isBlock &&
+                Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(birthdate, user.birthdate) &&
+                Objects.equals(gender, user.gender) &&
+                Objects.equals(status, user.status) &&
+                Objects.equals(address, user.address) &&
+                Objects.equals(file, user.file) &&
+                Objects.equals(profileImagePath, user.profileImagePath) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(activeTime, user.activeTime) &&
+                Objects.equals(createdAt, user.createdAt) &&
+                Objects.equals(verificationTokens, user.verificationTokens) &&
+                Objects.equals(roles, user.roles) &&
+                Objects.equals(personalMessageTransactions, user.personalMessageTransactions) &&
+                Objects.equals(groupMessageTransactions, user.groupMessageTransactions) &&
+                Objects.equals(friendLists, user.friendLists) &&
+                Objects.equals(groupMembers, user.groupMembers) &&
+                Objects.equals(notification, user.notification);
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", birthdate=" + birthdate + ", gender=" + gender + ", status="
-				+ status + ", address=" + address + ", profileImagePath=" + profileImagePath + ", email=" + email
-				+ ", password=" + password + ", enabled=" + enabled + ", isBlock=" + isBlock + ", activeTime="
-				+ activeTime + ", createdAt=" + createdAt + "]";
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, birthdate, gender, status, address, file, profileImagePath, email, password, enabled, isBlock, activeTime, createdAt, verificationTokens, roles, personalMessageTransactions, groupMessageTransactions, friendLists, groupMembers, notification);
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", birthdate=" + birthdate + ", gender=" + gender + ", status="
+                + status + ", address=" + address + ", profileImagePath=" + profileImagePath + ", email=" + email
+                + ", password=" + password + ", enabled=" + enabled + ", isBlock=" + isBlock + ", activeTime="
+                + activeTime + ", createdAt=" + createdAt + "]";
+    }
 
 }

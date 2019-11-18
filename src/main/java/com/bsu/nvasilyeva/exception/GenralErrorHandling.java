@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class GenralErrorHandling {
-	@ExceptionHandler(value = Exception.class)
-	public String errorFired(HttpServletRequest request, Exception ex, Model model) {
-		ex.printStackTrace();
-		return "redirect:/home";
-	}
+    @ExceptionHandler(value = Exception.class)
+    public String errorFired(HttpServletRequest request, Exception ex, Model model) {
+        ex.printStackTrace();
+        return "redirect:/home";
+    }
 
 }

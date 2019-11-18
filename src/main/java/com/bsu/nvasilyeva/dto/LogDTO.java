@@ -3,65 +3,70 @@ package com.bsu.nvasilyeva.dto;
 import java.util.Date;
 
 public class LogDTO {
-	private int id;
-	private String name;
-	private String email;
-	private Date loginTime;
-	private Date logoutTime;
 
-	public LogDTO(int id, String name, String email, Date loginTime, Date logoutTime) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.loginTime = loginTime;
-		this.logoutTime = logoutTime;
-	}
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    private String name;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private String email;
 
-	public String getName() {
-		return name;
-	}
+    private Date loginTime;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private Date logoutTime;
 
-	public String getEmail() {
-		return email;
-	}
+    public LogDTO(int id, String name, String email, Date loginTime, Date logoutTime) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.loginTime = loginTime;
+        this.logoutTime = logoutTime;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public Date getLoginTime() {
-		return loginTime;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setLoginTime(Date loginTime) {
-		this.loginTime = loginTime;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Date getLogoutTime() {
-		return logoutTime;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setLogoutTime(Date logoutTime) {
-		this.logoutTime = logoutTime;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public String toString() {
-		return "LogDTO [id=" + id + ", name=" + name + ", email=" + email + ", loginTime=" + loginTime + ", logoutTime="
-				+ logoutTime + "]";
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public Date getLogoutTime() {
+        return logoutTime;
+    }
+
+    public void setLogoutTime(Date logoutTime) {
+        this.logoutTime = logoutTime;
+    }
+
+    @Override
+    public String toString() {
+        return "LogDTO [id=" + id + ", name=" + name + ", email=" + email + ", loginTime=" + loginTime + ", logoutTime="
+                + logoutTime + "]";
+    }
 
 }

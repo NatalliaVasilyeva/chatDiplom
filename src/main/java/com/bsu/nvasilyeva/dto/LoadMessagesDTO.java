@@ -9,133 +9,159 @@ import com.github.marlonlom.utilities.timeago.TimeAgo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.StringJoiner;
 
 public class LoadMessagesDTO {
-	private Integer id;
-	private String message;
-	private String file;
-	private String chatTimeAgo;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a",timezone="Asia/Kolkata")
-	private Date chatTime;
-	private String fromId;
-	private String fromEmail;
-	private String toId;
-	@JsonIgnore
-	private User fromUser;
-	@JsonIgnore
-	private User toUser;
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
-	public LoadMessagesDTO(int id, String message,String file, Date chatTime, User fromUser, GGroup group,String fromEmail) throws ParseException {
-		super();
-		this.id = id;
-		this.message = message;
-		this.file=file;
-		this.chatTime = chatTime;
-		this.fromId = fromUser.getId();
-		this.toId = group.getId();
-		this.fromEmail=fromEmail;
+    private Integer id;
 
-		Date date = sdf.parse(chatTime.toString());
-		this.chatTimeAgo = TimeAgo.using(date.getTime());
-	}
+    private String message;
 
-	public LoadMessagesDTO(int id, String message,String file, Date chatTime, User fromUser, User toUser) throws ParseException {
-		super();
-		this.id = id;
-		this.message = message;
-		this.file=file;
-		this.chatTime = chatTime;
-		this.fromId = fromUser.getId();
-		this.toId = toUser.getId();
+    private String file;
 
-		Date date = sdf.parse(chatTime.toString());
-		this.chatTimeAgo = TimeAgo.using(date.getTime());
-	}
-	
+    private String chatTimeAgo;
 
-	public String getFromEmail() {
-		return fromEmail;
-	}
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a", timezone = "Asia/Kolkata")
+    private Date chatTime;
 
-	public void setFromEmail(String fromEmail) {
-		this.fromEmail = fromEmail;
-	}
+    private String fromId;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private String fromEmail;
 
-	public String getFile() {
-		return file;
-	}
+    private String toId;
 
-	public void setFile(String file) {
-		this.file = file;
-	}
+    @JsonIgnore
+    private User fromUser;
 
-	public String getToId() {
-		return toId;
-	}
+    @JsonIgnore
+    private User toUser;
 
-	public User getFromUser() {
-		return fromUser;
-	}
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
-	public void setFromUser(User fromUser) {
-		this.fromUser = fromUser;
-	}
+    public LoadMessagesDTO(int id, String message, String file, Date chatTime, User fromUser, GGroup group, String fromEmail) throws ParseException {
+        super();
+        this.id = id;
+        this.message = message;
+        this.file = file;
+        this.chatTime = chatTime;
+        this.fromId = fromUser.getId();
+        this.toId = group.getId();
+        this.fromEmail = fromEmail;
+        Date date = sdf.parse(chatTime.toString());
+        this.chatTimeAgo = TimeAgo.using(date.getTime());
+    }
 
-	public User getToUser() {
-		return toUser;
-	}
+    public LoadMessagesDTO(int id, String message, String file, Date chatTime, User fromUser, User toUser) throws ParseException {
+        super();
+        this.id = id;
+        this.message = message;
+        this.file = file;
+        this.chatTime = chatTime;
+        this.fromId = fromUser.getId();
+        this.toId = toUser.getId();
+        Date date = sdf.parse(chatTime.toString());
+        this.chatTimeAgo = TimeAgo.using(date.getTime());
+    }
 
-	public void setToUser(User toUser) {
-		this.toUser = toUser;
-	}
 
-	public String getFromId() {
-		return fromId;
-	}
+    public String getFromEmail() {
+        return fromEmail;
+    }
 
-	public void setFromId(String fromId) {
-		this.fromId = fromId;
-	}
+    public void setFromEmail(String fromEmail) {
+        this.fromEmail = fromEmail;
+    }
 
-	public void setToId(String toId) {
-		this.toId = toId;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public String getFile() {
+        return file;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setFile(String file) {
+        this.file = file;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getToId() {
+        return toId;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public User getFromUser() {
+        return fromUser;
+    }
 
-	public String getChatTimeAgo() {
-		return chatTimeAgo;
-	}
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
+    }
 
-	public void setChatTimeAgo(String chatTimeAgo) {
-		this.chatTimeAgo = chatTimeAgo;
-	}
+    public User getToUser() {
+        return toUser;
+    }
 
-	public Date getChatTime() {
-		return chatTime;
-	}
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
+    }
 
-	public void setChatTime(Date chatTime) {
-		this.chatTime = chatTime;
-	}
+    public String getFromId() {
+        return fromId;
+    }
 
+    public void setFromId(String fromId) {
+        this.fromId = fromId;
+    }
+
+    public void setToId(String toId) {
+        this.toId = toId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getChatTimeAgo() {
+        return chatTimeAgo;
+    }
+
+    public void setChatTimeAgo(String chatTimeAgo) {
+        this.chatTimeAgo = chatTimeAgo;
+    }
+
+    public Date getChatTime() {
+        return chatTime;
+    }
+
+    public void setChatTime(Date chatTime) {
+        this.chatTime = chatTime;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", LoadMessagesDTO.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("message='" + message + "'")
+                .add("file='" + file + "'")
+                .add("chatTimeAgo='" + chatTimeAgo + "'")
+                .add("chatTime=" + chatTime)
+                .add("fromId='" + fromId + "'")
+                .add("fromEmail='" + fromEmail + "'")
+                .add("toId='" + toId + "'")
+                .add("fromUser=" + fromUser)
+                .add("toUser=" + toUser)
+                .add("sdf=" + sdf)
+                .toString();
+    }
 }

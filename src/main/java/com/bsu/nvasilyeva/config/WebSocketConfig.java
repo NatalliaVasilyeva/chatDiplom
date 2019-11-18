@@ -18,35 +18,34 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 
-	/**
-	 * Use to sent information from client messages
-	 * @param registry helper which sent messages
-	 */
+    /**
+     * Use to sent information from client messages
+     * @param registry helper which sent messages
+     */
 
-	@Override
-	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		registry.enableSimpleBroker("/broker");
-		registry.setApplicationDestinationPrefixes("/app");
-	}
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/broker");
+        registry.setApplicationDestinationPrefixes("/app");
+    }
 
-	/**
-	 * Help register endpoint
-	 * @param registry  helper which register endpoint for chat
-	 */
+    /**
+     * Help register endpoint
+     * @param registry helper which register endpoint for chat
+     */
 
-	@Override
-	public void registerStompEndpoints(StompEndpointRegistry registry) {
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/connect").withSockJS();
+    }
 
-		registry.addEndpoint("/connect").withSockJS();
-	}
 
-
-	/**
-	 * Set max message size
-	 * @param registration parameter which keep information about max message size
-	 */
-	@Override
-	public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
-		registration.setMessageSizeLimit(11 * 1024 * 1024);
-	}
+    /**
+     * Set max message size
+     * @param registration parameter which keep information about max message size
+     */
+    @Override
+    public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
+        registration.setMessageSizeLimit(11 * 1024 * 1024);
+    }
 }

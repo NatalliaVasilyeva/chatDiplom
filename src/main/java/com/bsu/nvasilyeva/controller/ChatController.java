@@ -3,7 +3,7 @@ package com.bsu.nvasilyeva.controller;
 import com.bsu.nvasilyeva.dto.*;
 import com.bsu.nvasilyeva.entity.GroupMessageTransaction;
 import com.bsu.nvasilyeva.entity.Notification;
-import com.bsu.nvasilyeva.handler.ParticipantHandler;
+import com.bsu.nvasilyeva.entity.ParticipantRepository;
 import com.bsu.nvasilyeva.entity.User;
 import com.bsu.nvasilyeva.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class ChatController {
     GroupMemberService groupMemberService;
 
     @Autowired
-    ParticipantHandler participantHandler;
+    ParticipantRepository participantRepository;
 
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
@@ -123,14 +123,10 @@ public class ChatController {
                     simpMessagingTemplate.convertAndSendToUser(member.getEmail(), "/broker/getOnePersonalMessage",
                             message);
                 } else {
-
                     groupMessageTransactionDetailService.add(member.getId(), messageTransaction, false);
                 }
-
             }
-
         }
-
     }
 
     @MessageMapping("/changePersonalMessageStatusNotReaded")

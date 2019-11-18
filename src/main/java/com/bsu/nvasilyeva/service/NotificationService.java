@@ -12,27 +12,27 @@ import java.util.List;
 @Service
 public class NotificationService {
 
-	@Autowired
-	NotificationDAO notificationDAO;
-	
-	@Autowired
-	UserService userService;
-	public void add(Notification notification)
-	{
-		notificationDAO.add(notification);
-	}
-	
-	public Long getTotalUnreadNotificationCount(User user) {
-		
-		return notificationDAO.getTotalUnreadNotificationCount(user);
-	}
-	
-	public void changeNotificationStatusAllReaded(User user, boolean isReaded) {
-		notificationDAO.changeNotificationStatusAllReaded(user, true);
-	}
+    @Autowired
+    NotificationDAO notificationDAO;
 
-	public List<NotificationDTO> getAllNotifications(String email) {
-		User user=userService.buildUserFromEmail(email);
-		return notificationDAO.getAllNotifications(user);
-	}
+    @Autowired
+    UserService userService;
+
+    public void add(Notification notification) {
+        notificationDAO.add(notification);
+    }
+
+    public Long getTotalUnreadNotificationCount(User user) {
+
+        return notificationDAO.getTotalUnreadNotificationCount(user);
+    }
+
+    public void changeNotificationStatusAllReaded(User user, boolean isReaded) {
+        notificationDAO.changeNotificationStatusAllReaded(user, true);
+    }
+
+    public List<NotificationDTO> getAllNotifications(String email) {
+        User user = userService.buildUserFromEmail(email);
+        return notificationDAO.getAllNotifications(user);
+    }
 }

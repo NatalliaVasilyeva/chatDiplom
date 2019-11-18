@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RolesService {
 
-	@Autowired
+    @Autowired
     RolesDAO rolesDAO;
 
-	public void add(Roles roles) {
-		rolesDAO.addRole(roles);
-	}
+    public void add(Roles roles) {
+        rolesDAO.addRole(roles);
+    }
 
 }

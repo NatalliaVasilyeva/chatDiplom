@@ -1,31 +1,34 @@
 package com.bsu.nvasilyeva.dto;
 
 public class HomeDTO {
-	private Long totalPersonalMessageCount;
-	private Long totalNotificationCount;
 
-	
+    private Long totalPersonalMessageCount;
 
-	public HomeDTO(Long totalPersonalMessageCount, Long totalNotificationCount) {
-		super();
-		this.totalPersonalMessageCount = totalPersonalMessageCount;
-		this.totalNotificationCount = totalNotificationCount;
-	}
+    private Long totalNotificationCount;
 
-	public Long getTotalNotificationCount() {
-		return totalNotificationCount;
-	}
 
-	public void setTotalNotificationCount(Long totalNotificationCount) {
-		this.totalNotificationCount = totalNotificationCount;
-	}
+    public HomeDTO(Long totalPersonalMessageCount, Long totalNotificationCount) {
+        super();
+        this.totalPersonalMessageCount = totalPersonalMessageCount;
+        this.totalNotificationCount = totalNotificationCount;
+    }
 
-	public Long getTotalPersonalMessageCount() {
-		return totalPersonalMessageCount;
-	}
+    public Long getTotalNotificationCount() {
 
-	public void setTotalPersonalMessageCount(Long totalPersonalMessageCount) {
-		this.totalPersonalMessageCount = totalPersonalMessageCount;
-	}
+        return totalNotificationCount;
+    }
+
+    public void setTotalNotificationCount(Long totalNotificationCount) {
+        this.totalNotificationCount = totalNotificationCount;
+    }
+
+    public Long getTotalPersonalMessageCount() {
+
+        return totalPersonalMessageCount;
+    }
+
+    public void setTotalPersonalMessageCount(Long totalPersonalMessageCount) {
+        this.totalPersonalMessageCount = totalPersonalMessageCount;
+    }
 
 }

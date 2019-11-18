@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageService {
 
-	@Autowired
+    @Autowired
     MessageDAO messageDAO;
 
-	public void add(Message message) {
-		messageDAO.add(message);
-	}
+    public void add(Message message) {
+        messageDAO.add(message);
+    }
 
-	public Message findById(int id) {
-		return messageDAO.findById(id);
-	}
+    public Message findById(int id) {
+        return messageDAO.findById(id);
+    }
 }

@@ -19,8 +19,10 @@ public class WebSocketSecurity extends AbstractSecurityWebSocketMessageBrokerCon
 
     @Override
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
-
-        messages.simpDestMatchers("/connect/**").authenticated().anyMessage().authenticated();
+        messages.simpDestMatchers("/connect/**")
+                .authenticated()
+                .anyMessage()
+                .authenticated();
     }
 
     /**
@@ -32,7 +34,6 @@ public class WebSocketSecurity extends AbstractSecurityWebSocketMessageBrokerCon
      * <p>
      * Subclasses can override this method to disable CSRF protection
      * </p>
-     *
      * @return false if a CSRF token is required for connecting, else true
      */
 

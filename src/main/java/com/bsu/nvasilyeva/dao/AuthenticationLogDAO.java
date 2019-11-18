@@ -31,14 +31,12 @@ public class AuthenticationLogDAO {
 
     @Transactional
     public void add(AuthenticationLog log) {
-
         entityManager.persist(log);
     }
 
     @Transactional
     public void changeLogoutTime(User user) {
         int id = getMaxIdByUser(user);
-
         entityManager.
                 createQuery(UPDATE_LOG_QUERY)
                 .setParameter("id", id).setParameter("logoutTime", new Date()).executeUpdate();

@@ -20,7 +20,6 @@ public class DispatcherServletConfig extends AbstractAnnotationConfigDispatcherS
 
     /**
      * Add configurations which init beans
-     *
      * @return configure class
      */
 
@@ -31,31 +30,26 @@ public class DispatcherServletConfig extends AbstractAnnotationConfigDispatcherS
 
     /**
      * Add configuration which init ViewResolver
-     *
      * @return configure class
      */
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-
         return new Class[]{BeansConfig.class};
     }
 
     /**
-     * Set path af application
-     *
+     * Set path af applicatio
      * @return path
      */
 
     @Override
     protected String[] getServletMappings() {
-
         return new String[]{"/"};
     }
 
     /**
      * Set upload directory and register a MultipartConfigElement
-     *
      * @param registration use to set multipart config
      */
 

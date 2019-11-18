@@ -7,122 +7,130 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ChatPeopleDTO {
-	private String id;
-	private String name;
-	private String email;
-	private String profileImagePath;
-	private Date activeTime;
-	private String activeTimeAgo;
-	private Long countMessage;
-	private boolean isOnline;
 
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+    private String id;
 
-	public ChatPeopleDTO(String id, String name, String email, String profileImagePath, Date activeTime,
-			Long countMessage) throws ParseException {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.profileImagePath = profileImagePath;
-		this.activeTime = activeTime;
-		this.countMessage = countMessage;
+    private String name;
 
-		Date date = sdf.parse(activeTime.toString());
-		this.activeTimeAgo = TimeAgo.using(date.getTime());
-	}
+    private String email;
 
-	public ChatPeopleDTO(String id, String name, String email, String profileImagePath, Date activeTime)
-			throws ParseException {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.profileImagePath = profileImagePath;
-		this.activeTime = activeTime;
+    private String profileImagePath;
 
-		Date date = sdf.parse(activeTime.toString());
-		this.activeTimeAgo = TimeAgo.using(date.getTime());
-	}
+    private Date activeTime;
 
-	// for group
-	public ChatPeopleDTO(String id, String name, String profileImagePath,Boolean isLeaded) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.profileImagePath = profileImagePath;
-		this.isOnline=isLeaded;
-	}
+    private String activeTimeAgo;
 
-	public void setIsOnline(boolean isOnline) {
-		this.isOnline = isOnline;
-	}
+    private Long countMessage;
 
-	public boolean getIsOnline() {
-		return isOnline;
-	}
+    private boolean isOnline;
 
-	public void setCountMessage(Long countMessage) {
-		this.countMessage = countMessage;
-	}
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
-	public Long getCountMessage() {
-		return countMessage;
-	}
+    public ChatPeopleDTO(String id, String name, String email, String profileImagePath, Date activeTime,
+                         Long countMessage) throws ParseException {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.profileImagePath = profileImagePath;
+        this.activeTime = activeTime;
+        this.countMessage = countMessage;
 
-	public String getId() {
-		return id;
-	}
+        Date date = sdf.parse(activeTime.toString());
+        this.activeTimeAgo = TimeAgo.using(date.getTime());
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public ChatPeopleDTO(String id, String name, String email, String profileImagePath, Date activeTime)
+            throws ParseException {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.profileImagePath = profileImagePath;
+        this.activeTime = activeTime;
 
-	public String getName() {
-		return name;
-	}
+        Date date = sdf.parse(activeTime.toString());
+        this.activeTimeAgo = TimeAgo.using(date.getTime());
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    // for group
+    public ChatPeopleDTO(String id, String name, String profileImagePath, Boolean isLeaded) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.profileImagePath = profileImagePath;
+        this.isOnline = isLeaded;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setIsOnline(boolean isOnline) {
+        this.isOnline = isOnline;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public boolean getIsOnline() {
+        return isOnline;
+    }
 
-	public String getProfileImagePath() {
-		return profileImagePath;
-	}
+    public void setCountMessage(Long countMessage) {
+        this.countMessage = countMessage;
+    }
 
-	public void setProfileImagePath(String profileImagePath) {
-		this.profileImagePath = profileImagePath;
-	}
+    public Long getCountMessage() {
+        return countMessage;
+    }
 
-	public Date getActiveTime() {
-		return activeTime;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setActiveTime(Date activeTime) {
-		this.activeTime = activeTime;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getActiveTimeAgo() {
-		return activeTimeAgo;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setActiveTimeAgo(String activeTimeAgo) {
-		this.activeTimeAgo = activeTimeAgo;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public String toString() {
-		return "ChatPeopleDTO [id=" + id + ", name=" + name + ", email=" + email + ", profileImagePath="
-				+ profileImagePath + ", activeTime=" + activeTime + ", activeTimeAgo=" + activeTimeAgo
-				+ ", countMessage=" + countMessage + ", isOnline=" + isOnline + "]";
-	}
-	
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProfileImagePath() {
+        return profileImagePath;
+    }
+
+    public void setProfileImagePath(String profileImagePath) {
+        this.profileImagePath = profileImagePath;
+    }
+
+    public Date getActiveTime() {
+        return activeTime;
+    }
+
+    public void setActiveTime(Date activeTime) {
+        this.activeTime = activeTime;
+    }
+
+    public String getActiveTimeAgo() {
+        return activeTimeAgo;
+    }
+
+    public void setActiveTimeAgo(String activeTimeAgo) {
+        this.activeTimeAgo = activeTimeAgo;
+    }
+
+    @Override
+    public String toString() {
+        return "ChatPeopleDTO [id=" + id + ", name=" + name + ", email=" + email + ", profileImagePath="
+                + profileImagePath + ", activeTime=" + activeTime + ", activeTimeAgo=" + activeTimeAgo
+                + ", countMessage=" + countMessage + ", isOnline=" + isOnline + "]";
+    }
+
 }

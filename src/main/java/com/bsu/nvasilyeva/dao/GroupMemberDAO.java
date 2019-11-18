@@ -29,6 +29,7 @@ public class GroupMemberDAO {
 
     @Transactional
     public void addMember(GroupMember groupMember) {
+
         entityManager.persist(groupMember);
     }
 
@@ -37,8 +38,8 @@ public class GroupMemberDAO {
         @SuppressWarnings("unchecked")
         List<ChatPeopleDTO> chatPeopleDTOs = entityManager.
                 createQuery(CHAT_MEMBER_QUERY).
-                setParameter("user", user)
-                .getResultList();
+                setParameter("user", user).
+                getResultList();
 
         User toUser = new User();
         GGroup group = new GGroup();

@@ -13,27 +13,27 @@ import java.util.List;
 @Service
 public class AuthenticationLogService {
 
-	@Autowired
+    @Autowired
     AuthenticationLogDAO authenticationDao;
 
-	public List<LogDTO> list() {
-		return authenticationDao.list();
-	}
+    public List<LogDTO> list() {
+        return authenticationDao.list();
+    }
 
-	public void add(AuthenticationLog log) {
-		authenticationDao.add(log);
-	}
+    public void add(AuthenticationLog log) {
+        authenticationDao.add(log);
+    }
 
-	public void changeLogoutTime(User user) {
-		authenticationDao.changeLogoutTime(user);
-	}
+    public void changeLogoutTime(User user) {
+        authenticationDao.changeLogoutTime(user);
+    }
 
-	public AuthenticationLog buildPOJOObject() {
-		AuthenticationLog authenticationLog = new AuthenticationLog();
-		authenticationLog.setCreatedAt(new Date());
-		authenticationLog.setLoginTime(new Date());
-		authenticationLog.setLogoutTime(new Date());
-		return authenticationLog;
-	}
+    public AuthenticationLog buildPOJOObject() {
+        AuthenticationLog authenticationLog = new AuthenticationLog();
+        authenticationLog.setCreatedAt(new Date());
+        authenticationLog.setLoginTime(new Date());
+        authenticationLog.setLogoutTime(new Date());
+        return authenticationLog;
+    }
 
 }

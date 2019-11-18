@@ -5,105 +5,128 @@ import com.github.marlonlom.utilities.timeago.TimeAgo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.StringJoiner;
 
 public class ApplicationUserDTO {
-	private String id;
-	private String name;
-	private String email;
-	private String profileImagePath;
-	private Date sentTime;
-	private boolean flag=false;
 
-	private String timeAgo;
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+    private String id;
 
-	public ApplicationUserDTO(String id, String name, String email, String profileImagePath) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.profileImagePath = profileImagePath;
-	}
-	public ApplicationUserDTO(String id, String name, String email, String profileImagePath,boolean isLeader) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.profileImagePath = profileImagePath;
-		this.flag=isLeader;
-	}
-	public ApplicationUserDTO(String id, String email) {
-		super();
-		this.id = id;
-		this.email=email;
-	}
+    private String name;
 
-	public ApplicationUserDTO(String id, String name, String email, String profileImagePath, Date sentTime)
-			throws ParseException {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.profileImagePath = profileImagePath;
-		this.sentTime = sentTime;
+    private String email;
 
-		Date date = sdf.parse(sentTime.toString());
-		this.timeAgo = TimeAgo.using(date.getTime());
-	}
+    private String profileImagePath;
 
-	public String getTimeAgo() {
-		return timeAgo;
-	}
+    private Date sentTime;
 
-	public void setTimeAgo(String timeAgo) {
-		this.timeAgo = timeAgo;
-	}
+    private boolean flag = false;
 
-	
-	public boolean isFlag() {
-		return flag;
-	}
-	public void setFlag(boolean flag) {
-		this.flag = flag;
-	}
-	public Date getSentTime() {
-		return sentTime;
-	}
+    private String timeAgo;
 
-	public void setSentTime(Date sentTime) {
-		this.sentTime = sentTime;
-	}
+    public ApplicationUserDTO(String id, String name, String email, String profileImagePath) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.profileImagePath = profileImagePath;
+    }
 
-	public String getProfileImagePath() {
-		return profileImagePath;
-	}
+    public ApplicationUserDTO(String id, String name, String email, String profileImagePath, boolean isLeader) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.profileImagePath = profileImagePath;
+        this.flag = isLeader;
+    }
 
-	public void setProfileImagePath(String profileImagePath) {
-		this.profileImagePath = profileImagePath;
-	}
+    public ApplicationUserDTO(String id, String email) {
+        super();
+        this.id = id;
+        this.email = email;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public ApplicationUserDTO(String id, String name, String email, String profileImagePath, Date sentTime)
+            throws ParseException {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.profileImagePath = profileImagePath;
+        this.sentTime = sentTime;
 
-	public String getId() {
-		return id;
-	}
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        Date date = sdf.parse(sentTime.toString());
+        this.timeAgo = TimeAgo.using(date.getTime());
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getTimeAgo() {
+        return timeAgo;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setTimeAgo(String timeAgo) {
+        this.timeAgo = timeAgo;
+    }
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public boolean isFlag() {
+        return flag;
+    }
 
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public Date getSentTime() {
+        return sentTime;
+    }
+
+    public void setSentTime(Date sentTime) {
+        this.sentTime = sentTime;
+    }
+
+    public String getProfileImagePath() {
+        return profileImagePath;
+    }
+
+    public void setProfileImagePath(String profileImagePath) {
+        this.profileImagePath = profileImagePath;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", ApplicationUserDTO.class.getSimpleName() + "[", "]")
+                .add("id='" + id + "'")
+                .add("name='" + name + "'")
+                .add("email='" + email + "'")
+                .add("profileImagePath='" + profileImagePath + "'")
+                .add("sentTime=" + sentTime)
+                .add("flag=" + flag)
+                .add("timeAgo='" + timeAgo + "'")
+                .toString();
+    }
 }

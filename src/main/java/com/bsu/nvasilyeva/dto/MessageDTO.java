@@ -7,90 +7,96 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
 public class MessageDTO {
-	private String toEmail;
-	private String fromEmail;
-	private String fromId;
-	private int messageId;
-	private String message;
-	private String file;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a", timezone = "Asia/Kolkata")
-	private Date messageTime;
 
-	@JsonCreator
-	public MessageDTO(@JsonProperty("message") String message, @JsonProperty("toEmail") String toEmail,
-			@JsonProperty("fromId") String fromId, @JsonProperty("file") String file) {
-		super();
-		this.toEmail = toEmail;
-		this.message = message;
-		this.fromId = fromId;
-		this.file = file;
-		messageTime = new Date();
-	}
+    private String toEmail;
 
-	public MessageDTO() {
+    private String fromEmail;
 
-	}
+    private String fromId;
 
-	public void setFromEmail(String fromEmail) {
-		this.fromEmail = fromEmail;
-	}
+    private int messageId;
 
-	public String getFromEmail() {
-		return fromEmail;
-	}
+    private String message;
 
-	public String getFile() {
-		return file;
-	}
+    private String file;
 
-	public void setFile(String file) {
-		this.file = file;
-	}
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a", timezone = "Europe/Minsk")
+    private Date messageTime;
 
-	@Override
-	public String toString() {
-		return "MessageDTO [toEmail=" + toEmail + ", fromId=" + fromId + ", messageId=" + messageId + ", message="
-				+ message + ", messageTime=" + messageTime + "]";
-	}
+    @JsonCreator
+    public MessageDTO(@JsonProperty("message") String message, @JsonProperty("toEmail") String toEmail,
+                      @JsonProperty("fromId") String fromId, @JsonProperty("file") String file) {
+        super();
+        this.toEmail = toEmail;
+        this.message = message;
+        this.fromId = fromId;
+        this.file = file;
+        messageTime = new Date();
+    }
 
-	public int getMessageId() {
-		return messageId;
-	}
+    public MessageDTO() {
 
-	public void setMessageId(int messageId) {
-		this.messageId = messageId;
-	}
+    }
 
-	public String getFromId() {
-		return fromId;
-	}
+    public void setFromEmail(String fromEmail) {
+        this.fromEmail = fromEmail;
+    }
 
-	public void setFromId(String fromId) {
-		this.fromId = fromId;
-	}
+    public String getFromEmail() {
+        return fromEmail;
+    }
 
-	public Date getMessageTime() {
-		return messageTime;
-	}
+    public String getFile() {
+        return file;
+    }
 
-	public void setMessageTime(Date messageTime) {
-		this.messageTime = messageTime;
-	}
+    public void setFile(String file) {
+        this.file = file;
+    }
 
-	public String getToEmail() {
-		return toEmail;
-	}
+     public int getMessageId() {
+        return messageId;
+    }
 
-	public void setToEmail(String toEmail) {
-		this.toEmail = toEmail;
-	}
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getFromId() {
+        return fromId;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setFromId(String fromId) {
+        this.fromId = fromId;
+    }
 
+    public Date getMessageTime() {
+        return messageTime;
+    }
+
+    public void setMessageTime(Date messageTime) {
+        this.messageTime = messageTime;
+    }
+
+    public String getToEmail() {
+        return toEmail;
+    }
+
+    public void setToEmail(String toEmail) {
+        this.toEmail = toEmail;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "MessageDTO [toEmail=" + toEmail + ", fromId=" + fromId + ", messageId=" + messageId + ", message="
+                + message + ", messageTime=" + messageTime + "]";
+    }
 }

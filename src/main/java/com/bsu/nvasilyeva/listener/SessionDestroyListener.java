@@ -16,32 +16,31 @@ import java.text.ParseException;
 @Component
 public class SessionDestroyListener {
 
-	@Autowired
+    @Autowired
     UserService userService;
-	@Autowired
+    @Autowired
     ActiveUserStore activeUserStore;
-	@Autowired
+    @Autowired
     ChatService chatService;
 
-	@Autowired
+    @Autowired
     AuthenticationLogService authenticationLogService;
 
-	@EventListener
-	public void sessionCreatelistener(HttpSessionCreatedEvent event) {
-	}
+    @EventListener
+    public void sessionCreatelistener(HttpSessionCreatedEvent event) {
+    }
 
-	@EventListener
-	public void sessionDestroylistener(HttpSessionDestroyedEvent event) throws ParseException {
-		HttpSession session = event.getSession();
-		LoggedUserListener loggedUser = (LoggedUserListener) session.getAttribute("loggedUser");
-		if (loggedUser != null) {
-			userService.updateTime(loggedUser.getEmail());
-			activeUserStore.getUsers().remove(loggedUser.getEmail());
-			// user log
-			authenticationLogService.changeLogoutTime(userService.findByEmail(loggedUser.getEmail()));
-			chatService.sendToAllFriendOflineMessage(loggedUser.getEmail());
-		}
-	}
+    @EventListener
+    public void sessionDestroylistener(HttpSessionDestroyedEvent event) throws ParseException {
+        HttpSession session = event.getSession();
+        LoggedUserListener loggedUser = (LoggedUserListener) session.getAttribute("loggedUser");
+        if (loggedUser != null) {
+            userService.updateTime(loggedUser.getEmail());
+            activeUserStore.getUsers().remove(loggedUser.getEmail());
+            authenticationLogService.changeLogoutTime(userService.findByEmail(loggedUser.getEmail()));
+            chatService.sendToAllFriendOflineMessage(loggedUser.getEmail());
+        }
+    }
 
 }
 
