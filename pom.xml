@@ -11,7 +11,7 @@
     <properties>
         <springframework.version>5.0.14.RELEASE</springframework.version>
         <hibernate.version>5.2.9.Final</hibernate.version>
-        <spring-security.version>5.0.12.RELEASE</spring-security.version>
+        <spring-security.version>5.3.3.RELEASE</spring-security.version>
     </properties>
     <dependencies>
         <!-- Spring dependency dependency -->
