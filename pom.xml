@@ -9,7 +9,7 @@
     <name>Chat</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <springframework.version>5.0.14.RELEASE</springframework.version>
+        <springframework.version>5.3.18</springframework.version>
         <hibernate.version>5.2.9.Final</hibernate.version>
         <spring-security.version>5.0.12.RELEASE</spring-security.version>
     </properties>
